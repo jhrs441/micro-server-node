@@ -1,0 +1,31 @@
+{
+  "name": "microservernode",
+  "version": "1.0.0",
+  "description": "Micro servidor para ser monitoreado",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "John Ramirez",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "fs-extra": "^11.2.0",
+    "systeminformation": "^5.23.5"
+  },
+  "bin": {
+    "microservernode": "server.js"
+  },
+  "pkg": {
+    "scripts": "server.js",
+    "assets": [],
+    "targets": [
+      "node18-linux-x64",
+      "node18-macos-x64",
+      "node18-win-x64"
+    ]
+  }
+}
