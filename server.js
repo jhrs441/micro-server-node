@@ -116,26 +116,6 @@ app.get("/fulldate", async (req, res, next) => {
     }
 });
 
-app.post('/print', (req, res) => {
-    const { ip, password } = req.body;
-    const command = `"C:\\Program Files\\uvnc bvba\\UltraVNC\\vncviewer.exe" ${ip} /password ${password} /viewonly -serverscale 2`;
-
-    // Envía la respuesta antes de ejecutar el comando
-    res.send('Comando enviado correctamente');
-
-    // Ejecuta el comando
-    exec(command, (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Error: ${error.message}`);
-            return;
-        }
-        if (stderr) {
-            console.error(`Stderr: ${stderr}`);
-            return;
-        }
-        console.log(`Stdout: ${stdout}`);
-    });
-});
 
 // Ruta para apagar la máquina
 app.get("/apagado", (req, res, next) => {
@@ -272,6 +252,7 @@ const obtenerInfoRAM = () => {
     };
 };
 
+// Función para apagar el equipo
 function shutdownComputer() {
     exec('shutdown /s /t 0', (err, stdout, stderr) => {
         if (err) {
