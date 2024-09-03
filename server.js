@@ -5,16 +5,16 @@ const si = require("systeminformation");
 const fs = require("fs-extra");
 const cors = require('cors');
 const path = require('path');
-
+const directorioActual = process.cwd();
 
 const app = express();
 const port = 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use("/screenshot", express.static(path.join("C:\\Aplicaciones\\microserver\\screenshot\\img")));//carpeta para consultar la imagen
+app.use("/screenshot", express.static(path.join(directorioActual, 'screenshot/img')));//carpeta para consultar la imagen
 app.get("/", (req, res) => {
-    res.send("El servidor está activo");
+    res.send("Micro servidor activo");
 });
 
 app.get("/estatus", async (req, res) => {
@@ -49,7 +49,7 @@ app.get("/fulldate", async (req, res, next) => {
 
     try {
         if (update_datos === "true") {
-            // Obtener los detalles del sistema y guardarlos en el archivo
+            // Obtener los detalles del sistema y guardarlos en el archivo js
             const cpus = await si.cpu();
             const zocalo = await si.baseboard();
             const osInfo = await si.osInfo();
@@ -97,11 +97,10 @@ app.get("/fulldate", async (req, res, next) => {
                 almacenamiento: discosInfo,
                 slotMemoriaRam: zocalo.memSlots,
                 ramInfo: raminfo
-
                 //...obtenerInfoRAM(),
             };
             // se consulta al txt
-            const rutaArchivo = "C:/Aplicaciones/microserver/datos/datos_equipo.json";
+            const rutaArchivo = path.join(directorioActual, 'datos/datos_equipo.json');
             await fs.writeJson(rutaArchivo, fullDetails);
         } else {
             // Obtener los datos del archivo
@@ -115,7 +114,6 @@ app.get("/fulldate", async (req, res, next) => {
         next(error);
     }
 });
-
 
 // Ruta para apagar la máquina
 app.get("/apagado", (req, res, next) => {
@@ -204,7 +202,8 @@ function ejecutarCMD(nombreArchivo) {
     });
 }
 
-const filePath = "C:/Aplicaciones/microserver/datos/datos_equipo.json";
+// leer los datos del equipo guardados localmente
+const filePath = path.join(directorioActual, 'datos/datos_equipo.json');
 async function obtenerDatosEquipoTxt() {
     let datosEquipo;
 
@@ -216,10 +215,10 @@ async function obtenerDatosEquipoTxt() {
             // Leer los datos del archivo si existe
             datosEquipo = await fs.readJson(filePath);
         } else {
-            // Si el archivo no existe, inicializar datos vacíos
-            datosEquipo = {
-                datos: null,
-            };
+            const dirPath = path.dirname(filePath);
+            await fs.ensureDir(dirPath); //se crea la carpeta
+            datosEquipo = { datos: null };
+            await fs.writeJson(filePath, datosEquipo); // se crea el archivo con datos vacíos
         }
     } catch (error) {
         console.error("Error al leer el archivo:", error);
@@ -229,13 +228,14 @@ async function obtenerDatosEquipoTxt() {
     return datosEquipo;
 }
 
-// Ruta de origen y destino de imagen de bloqueo al iniciar el sistema
-const origen = "C:/Aplicaciones/microserver/screenshot/bloqueo/img_captura.png";
-const destino = "C:/Aplicaciones/microserver/screenshot/img/img_captura.png";
+
+const origen = path.join(directorioActual, 'screenshot/bloqueo/img_captura.png');
+const destino = path.join(directorioActual, 'screenshot/img/img_captura.png');
+
 // Copiar el archivo y renombrarlo
 fs.copy(origen, destino)
     .then(() => {
-        console.log("Archivo copiado exitosamente.");
+        console.log("img bloqueo copiado exitosamente.");
     })
     .catch(err => {
         console.error("Error al copiar el archivo:", err);

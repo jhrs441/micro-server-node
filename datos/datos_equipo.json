@@ -1,0 +1,49 @@
+{
+    "nombreEquipo": "JOHN-TECNICO",
+    "version": "Lenovo V15 G3 IAP",
+    "model": "82TT",
+    "numeroSerie": "PF4A3R4H",
+    "marcaProcesador": "Intel",
+    "tipoProcesador": "Gen Intel® Core™ i3-1215U",
+    "distro": "Microsoft Windows 11 Pro",
+    "arch": "x64",
+    "almacenamiento": [
+        {
+            "type": "HD",
+            "name": "WDC WD10SPZX-24Z10",
+            "vendor": "Western Digital",
+            "size": "931.51 GB",
+            "serialNum": "WD-WXA2A11890ZU",
+            "interfaceType": "SATA"
+        },
+        {
+            "type": "SSD",
+            "name": "SAMSUNG MZALQ256HBJD-00BL2",
+            "vendor": "Samsung",
+            "size": "238.47 GB",
+            "serialNum": "0025_38D4_31B4_EA5E.",
+            "interfaceType": "NVMe"
+        }
+    ],
+    "slotMemoriaRam": 2,
+    "ramInfo": [
+        {
+            "size": "8.00 GB",
+            "type": "DDR4",
+            "clockSpeed": 2667,
+            "formFactor": "SODIMM",
+            "manufacturer": "Crucial Technology",
+            "partNum": "CT8G4SFS8266.M8FD",
+            "serialNum": "253F1C50"
+        },
+        {
+            "size": "8.00 GB",
+            "type": "DDR4",
+            "clockSpeed": 2667,
+            "formFactor": "Unknown",
+            "manufacturer": "Samsung",
+            "partNum": "M471A1G44BB0-CWE",
+            "serialNum": "00000000"
+        }
+    ]
+}
