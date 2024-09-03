@@ -215,6 +215,7 @@ async function obtenerDatosEquipoTxt() {
             // Leer los datos del archivo si existe
             datosEquipo = await fs.readJson(filePath);
         } else {
+
             const dirPath = path.dirname(filePath);
             await fs.ensureDir(dirPath); //se crea la carpeta
             datosEquipo = { datos: null };
@@ -235,7 +236,7 @@ const destino = path.join(directorioActual, 'screenshot/img/img_captura.png');
 // Copiar el archivo y renombrarlo
 fs.copy(origen, destino)
     .then(() => {
-        console.log("img bloqueo copiado exitosamente.");
+        console.log("Archivo copiado exitosamente.");
     })
     .catch(err => {
         console.error("Error al copiar el archivo:", err);
