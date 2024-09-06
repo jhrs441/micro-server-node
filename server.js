@@ -10,6 +10,7 @@ const directorioActual = process.cwd();
 const app = express();
 const port = 3000;
 
+//local
 app.use(cors());
 app.use(express.json());
 app.use("/screenshot", express.static(path.join(directorioActual, 'screenshot/img')));//carpeta para consultar la imagen
